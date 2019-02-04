@@ -1,7 +1,3 @@
-# 
-
-Rendu du TP d'InfoWeb sur le site CRUD.
-
 # InfoWeb TP-CRUD
 
 - Année : **L3 Info**
