@@ -12,3 +12,4 @@
 *Bourgeaux* | *Maxence*|
 *Ghouti-Terki* | *Rida*|
 *Peronny* | *Thomas*|
+*Camara* | *Noël*|
