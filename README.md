@@ -3,11 +3,12 @@
 - Année : **L3 Info**
 - Matière: *InfoWeb*
 - TP : *CRUD*
+- Sujet : *Championnat du monde de basketball*
 
 ## Auteur(s)
 
 |Nom|Prénom|
 |--|--|
-*Nom 1er auteur* | *Prénom 1er auteur*|
-*Nom 2eme auteur* | *Prénom 2eme auteur*|
-
+*Bourgeaux* | *Maxence*|
+*Ghouti-Terki* | *Rida*|
+*Peronny* | *Thomas*|
