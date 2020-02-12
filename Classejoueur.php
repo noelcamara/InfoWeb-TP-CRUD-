@@ -106,7 +106,7 @@ class Joueur
      */
     public function getIdEquipe(): int
     {
-        return $this->id_equipe;
+        return $this->getIdEquipe();
     }
 
     /**
