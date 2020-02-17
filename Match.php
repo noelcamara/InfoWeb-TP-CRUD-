@@ -62,28 +62,28 @@ class Match {
      * instantiation de self::$_pdos_selectAll
      */
     public static function initPDOS_selectAll() {
-        self::$_pdos_selectAll = self::$_pdo->prepare('SELECT * FROM equipe');
+        self::$_pdos_selectAll = self::$_pdo->prepare('SELECT * FROM matchs');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_select
      */
     public static function initPDOS_select() {
-        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM equipe WHERE id_equipe= :numero');
+        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM matchs WHERE id_matchs= :numero');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_update
      */
     public static function initPDOS_update() {
-        self::$_pdos_update =  self::$_pdo->prepare('UPDATE equipe SET nom_equipe=:nom, nb_victoire=:victoire, nb_defaite=:defaite, nb_points=:points WHERE id_equipe=:numero');
+        self::$_pdos_update =  self::$_pdo->prepare('UPDATE matchs SET :numero,:date_match,:elim_drecte, :score_equipe_1, :score_equipe_2,:id_equipe_1,:id_equipe_2 WHERE id_match=:numero');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_insert
      */
     public static function initPDOS_insert() {
-        self::$_pdos_insert = self::$_pdo->prepare('INSERT INTO equipe VALUES(:numero,:nom,:victoire, :defaite, :points)');
+        self::$_pdos_insert = self::$_pdo->prepare('INSERT INTO matchs VALUES(:numero,:date_match,:elim_drecte, :score_equipe_1, :score_equipe_2,:id_equipe_1,:id_equipe_2)');
     }
 
     /**
@@ -117,18 +117,6 @@ class Match {
     protected $id_equipe_2;
 
     /**
-     * nom du equipe
-     * @var string
-     */
-    protected $nom_equipe_1;
-
-    /**
-     * nom du equipe
-     * @var string
-     */
-    protected $nom_equipe_2;
-
-    /**
      * nombre de points de l'equipe 1
      *   @var string
      */
@@ -141,20 +129,83 @@ class Match {
     protected $nb_points_Equipe_2;
 
     /**
+     * id du match
+     *   @var int
+     */
+    protected $id_match;
+
+    /**
+     * date du match en jj/mm/aaaa
+     *   @var DateTime
+     */
+    protected $date;
+
+    /**
+     * l'équipe perdante est rayée de la compétition
+     *   @var string
+     */
+    protected $elim_directe;
+
+    /**
+     * le tour du match (groupes, quart, demi finale etc)
+     *   @var string
+     */
+    protected $type;
+
+    /**
      * attribut interne pour différencier les nouveaux objets des objets créés côté applicatif de ceux issus du SGBD
      * @var bool
      */
     private $nouveau = TRUE;
 
+
     /**
-     * @return $this->id_equipe
+     * (est-on censé faire un setteur d'id aussi ?
+     * @return int
+     */
+    public function get_id_match(): int {
+        return $this->id_match;
+    }
+
+    /**
+     * match à élimination directe : renvoie oui, sinon non
+     *
+     */
+    public function set_elim_directe($elim): void {
+        return $this->elim_directe=$elim;
+    }
+
+    /**
+     * match à élimination directe : renvoie oui, sinon non
+     * @return $this->elim_directe
+     */
+    public function get_elim_directe(): string {
+        return $this->elim_directe;
+    }
+
+    /**
+     * @return int
+     */
+    public function set_date_match($date): DateTime {
+        $this->date=$date;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function get_date_match(): DateTime {
+        return $this->date;
+    }
+
+    /**
+     * @return $this->id_equipe_1
      */
     public function getid_equipe_1() : int {
         return $this->id_equipe_1;
     }
 
     /**
-     * @return $this->id_equipe
+     * @return $this->id_equipe_2
      */
     public function getid_equipe_2() : int {
         return $this->id_equipe_2;
