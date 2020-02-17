@@ -90,7 +90,7 @@ class Match {
      * méthode statique instanciant equipeMetier::$_pdo_delete
      */
     public static function initPDOS_delete() {
-        self::$_pdos_delete = self::$_pdo->prepare('DELETE FROM equipe WHERE id_equipe=:numero');
+        self::$_pdos_delete = self::$_pdo->prepare('DELETE FROM matchs WHERE id_matchs=:numero');
     }
 
     /**
@@ -100,7 +100,7 @@ class Match {
     public static function initPDOS_count() {
         if (!isset(self::$_pdo))
             self::initPDO();
-        self::$_pdos_count = self::$_pdo->prepare('SELECT COUNT(*) FROM equipe');
+        self::$_pdos_count = self::$_pdo->prepare('SELECT COUNT(*) FROM matchs');
     }
 
 
@@ -261,6 +261,4 @@ class Match {
             print($e);
         }
     }
-
-
 }
