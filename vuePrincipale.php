@@ -23,6 +23,22 @@ include 'html5_head.php';
                         <a href='form_equipe.php'>Ajouter</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href='table_joueurs.php'><b>equipes</b></a>
+                    </td>
+                    <td>
+                        <a href='form_joueurs.php'>Ajouter</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href='table_matchs.php'><b>equipes</b></a>
+                    </td>
+                    <td>
+                        <a href='form_matchs.php'>Ajouter</a>
+                    </td>
+                </tr>
             </table>
 
     ";

@@ -259,7 +259,7 @@ class Equipe {
      * @param $id_equipe un identifiant de equipe
      * @return l'instance de equipeMetier associée à $id_equipe
      */
-    public static function initEquipe($id_equipe) : equipeMetier {
+    public static function initEquipe($id_equipe) : equipe {
         try {
 	        if (!isset(self::$_pdo))
 	            self::initPDO();
