@@ -18,6 +18,13 @@
 			include 'vuePrincipale.php';
 		break;
 }
-
+	include 'Match.php';
+	include 'form_equipe.php';
 	include 'html5_footer.php';
+
+
+	echo "hello";
+	$matchs = Match::getAll();
+	echo $matchs;
+
 ?>

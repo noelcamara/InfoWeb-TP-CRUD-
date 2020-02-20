@@ -1,5 +1,7 @@
 <?php
+include 'config.php';
 class Equipe {
+
 
     /**
      * gestion statique des accès SGBD
@@ -142,6 +144,15 @@ class Equipe {
      */
     public function getid_equipe() : int {
         return $this->id_equipe;
+    }
+
+
+    public static function tableEntete() : string {
+        return "";
+    }
+
+    public static function tableFooter() : string {
+        return "";
     }
 
     /**

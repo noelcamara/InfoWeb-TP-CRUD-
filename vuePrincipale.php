@@ -9,7 +9,7 @@ include 'html5_head.php';
             <table border='1'>
                   <tr>
                     <td>
-                        Table
+                        Tables
                     </td>
                     <td>
                         Ajouter un enregistrement à la table
@@ -17,7 +17,7 @@ include 'html5_head.php';
                 </tr>
                 <tr>
                     <td>
-                        <a href='table_equipe.php'><b>equipe</b></a>
+                        <a href='table_equipe.php'><b>equipes</b></a>
                     </td>
                     <td>
                         <a href='form_equipe.php'>Ajouter</a>
