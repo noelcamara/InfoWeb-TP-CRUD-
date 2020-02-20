@@ -1,6 +1,6 @@
 <?php
 
-include "MetierEquipe.php";
+include "Equipe.php";
 
 	if(isset($_POST['send'])) {
         $equipe = new MetierEquipe();

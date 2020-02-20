@@ -4,10 +4,14 @@ include "html5_head.php";
 <a href='vuePrincipale.php'> Retour à l'accueil </a></br>
 <?php
 
-    include "MetierEquipe.php";
+    include "Equipe.php";
 
 	if(isset($_POST['delete']) && isset($_POST['id'])) {
-		$equipe = MetierEquipe::initMetierEquipe($_POST['id']);
+        try {
+            $equipe = Equipe::initEquipe($_POST['id']);
+        } catch (Exception $e) {
+            echo "initialisation d'équipe ratée";
+        }
         $equipe->delete();
 		echo "<p class='suppression'> Suppression réussie! </p>";
 	}
@@ -23,15 +27,15 @@ include "html5_head.php";
 		$page = $_POST['page'];
 	}
 
-	$allEquipe = MetierEquipe::getAll();
+	$allEquipe = Equipe::getAll();
 
-	echo MetierEquipe::tableEntete();
+	echo Equipe::tableEntete(); // méthode ligne 148
 
 	foreach($allEquipe as $equipe) {
 		echo $equipe;
 	}
 
-	echo MetierEquipe::tableFooter();
+	echo Equipe::tableFooter(); // méthode ligne 152
 
 ?>
 

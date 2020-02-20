@@ -3,7 +3,6 @@
 
 class Match {
 
-
     /**
      * gestion statique des accès SGBD
      * @var PDO
@@ -45,7 +44,6 @@ class Match {
      * @var PDOStatement;
      */
     private static $_pdos_selectAll;
-
 
 
     /**
@@ -222,20 +220,6 @@ class Match {
      */
     public function setid_equipe_2($id_equipe): void {
         $this->id_equipe_2=$id_equipe;
-    }
-
-    /**
-     * @return $this->nom_equipe
-     */
-    public function getnom_equipe_1() : string {
-        return $this->nom_equipe_1;
-    }
-
-    /**
-     * @return $this->nom_equipe
-     */
-    public function getnom_equipe_2() : string {
-        return $this->nom_equipe_2;
     }
 
     /**
