@@ -1,7 +1,7 @@
 <?php
+include "config.php";
 
-
-class Match {
+class Matchs {
 
     /**
      * gestion statique des accès SGBD
@@ -34,13 +34,13 @@ class Match {
     private static $_pdos_delete;
 
     /**
-     * PreparedStatement associé à un SELECT, calcule le nombre de equipes de la table
+     * PreparedStatement associé à un SELECT, calcule le nombre de matchs de la table
      * @var PDOStatement;
      */
     private static $_pdos_count;
 
     /**
-     * PreparedStatement associé à un SELECT, récupère tous les equipes
+     * PreparedStatement associé à un SELECT, récupère tous les matchs
      * @var PDOStatement;
      */
     private static $_pdos_selectAll;
@@ -56,7 +56,7 @@ class Match {
     }
 
     /**
-     * préparation de la requête SELECT * FROM equipe
+     * préparation de la requête SELECT * FROM matchs
      * instantiation de self::$_pdos_selectAll
      */
     public static function initPDOS_selectAll() {
@@ -64,24 +64,24 @@ class Match {
     }
 
     /**
-     * méthode statique instanciant equipeMetier::$_pdo_select
+     * méthode statique instanciant matchs::$_pdo_select
      */
     public static function initPDOS_select() {
-        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM matchs WHERE id_matchs= :numero');
+        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM matchs WHERE id_match=:numero');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_update
      */
     public static function initPDOS_update() {
-        self::$_pdos_update =  self::$_pdo->prepare('UPDATE matchs SET :numero,:date_match,:elim_drecte, :score_equipe_1, :score_equipe_2,:id_equipe_1,:id_equipe_2 WHERE id_match=:numero');
+        self::$_pdos_update =  self::$_pdo->prepare('UPDATE matchs SET id_match=:numero,date_match=:date_match,elim_directe=:elim_drecte,type=:type_match,score_equipe1=:score_equipe1, score_equipe2=:score_equipe_2,id_equipe1=:id_equipe_1,id_equipe2=:id_equipe_2 WHERE id_match=:numero');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_insert
      */
     public static function initPDOS_insert() {
-        self::$_pdos_insert = self::$_pdo->prepare('INSERT INTO matchs VALUES(:numero,:date_match,:elim_drecte, :score_equipe_1, :score_equipe_2,:id_equipe_1,:id_equipe_2)');
+        self::$_pdos_insert = self::$_pdo->prepare('INSERT INTO matchs VALUES(:id_match,:date_match,:elim_directe,:type_m,:score_equipe1,:score_equipe2,:id_equipe1,:id_equipe2)');
     }
 
     /**
@@ -101,6 +101,11 @@ class Match {
         self::$_pdos_count = self::$_pdo->prepare('SELECT COUNT(*) FROM matchs');
     }
 
+    /**
+     * id du match
+     *   @var int
+     */
+    protected $id_match;
 
     /**
      * numéro du equipe (identifiant dans la table equipe)
@@ -116,25 +121,19 @@ class Match {
 
     /**
      * nombre de points de l'equipe 1
-     *   @var string
+     *   @var int
      */
-    protected $nb_points_Equipe_1;
+    protected $score_equipe_1;
 
     /**
      * nombre de points de l'equipe 2
-     *   @var string
-     */
-    protected $nb_points_Equipe_2;
-
-    /**
-     * id du match
      *   @var int
      */
-    protected $id_match;
+    protected $score_equipe_2;
 
     /**
      * date du match en jj/mm/aaaa
-     *   @var DateTime
+     *   @var string
      */
     protected $date;
 
@@ -148,14 +147,13 @@ class Match {
      * le tour du match (groupes, quart, demi finale etc)
      *   @var string
      */
-    protected $type;
+    protected $type_match;
 
     /**
      * attribut interne pour différencier les nouveaux objets des objets créés côté applicatif de ceux issus du SGBD
      * @var bool
      */
-    private $nouveau = TRUE;
-
+    private bool $nouveau = TRUE;
 
     /**
      * (est-on censé faire un setteur d'id aussi ?
@@ -170,7 +168,7 @@ class Match {
      *
      */
     public function set_elim_directe($elim): void {
-        return $this->elim_directe=$elim;
+        $this->elim_directe=$elim;
     }
 
     /**
@@ -182,17 +180,20 @@ class Match {
     }
 
     /**
-     * @return int
+     * @param $date
      */
-    public function set_date_match($date): DateTime {
+    public function set_date_match($date): void {
         $this->date=$date;
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function get_date_match(): DateTime {
-        return $this->date;
+    public function get_date_match(): string {
+        if($this->date==null)
+            return "0";
+        else
+            return $this->date;
     }
 
     /**
@@ -239,29 +240,55 @@ class Match {
     /**
      * @param $nom_equipe
      */
-    public function setNb_points_equipe_1($nb_points): void {
-        $this->nb_points_Equipe_1=$nb_points;
+    public function setscore_equipe_1($nb_points): void {
+        $this->score_equipe_1=$nb_points;
     }
 
     /**
      * @param $nom_equipe
      */
-    public function setNb_points_equipe_2($nb_points): string {
-        $this->nb_points_Equipe_2=$nb_points;
+    public function setscore_equipe_2($nb_points): void {
+        $this->score_equipe_2=$nb_points;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws Exception
+     */
+    public static function initMatch($id_m) {
+        try {
+            if (!isset(self::$_pdo))
+                self::initPDO();
+            if (!isset(self::$_pdos_select))
+                self::initPDOS_select();
+            self::$_pdos_select->bindValue(':numero', $id_m);
+            self::$_pdos_select->execute();
+            // résultat du fetch dans une instance de matchs
+            $lm = self::$_pdos_select->fetchObject('matchs');
+            if (isset($lm) && ! empty($lm))
+                $lm->setNouveau(FALSE);
+            if (empty($lm))
+                throw new Exception("Match $id_m inexistant dans la table matchs.\n");
+            return $lm;
+        }
+        catch (PDOException $e) {
+            print($e);
+        }
     }
 
     /**
      * @return $this->nb_victoire
      */
-    public function getNb_points_Equipe_1() : string {
-        return $this->nb_points_Equipe_1;
+    public function getscore_equipe_1() : string {
+        return $this->score_equipe_1;
     }
 
     /**
      * @return $this->nb_victoire
      */
-    public function getnb_points_Equipe_2() : string {
-        return $this->nb_points_Equipe_2;
+    public function getscore_equipe_2() : string {
+        return $this->score_equipe_2;
     }
 
     /**
@@ -278,8 +305,16 @@ class Match {
         $this->nouveau=$nouveau;
     }
 
+    public static function tableEntete(): string {
+        return "";
+    }
+
+    public static function tableFooter(): string {
+        return "";
+    }
+
     /**
-     * @return un tableau de tous les equipeMetier
+     * @return, un tableau de tous les matchs
      */
     public static function getAll(): array {
         try {
@@ -288,12 +323,29 @@ class Match {
             if (!isset(self::$_pdos_selectAll))
                 self::initPDOS_selectAll();
             self::$_pdos_selectAll->execute();
-            // résultat du fetch dans une instance de equipeMetier
-            $lesequipes = self::$_pdos_selectAll->fetchAll(PDO::FETCH_CLASS,'Match');
-            return $lesequipes;
+            // résultat du fetch dans une instance de matchs
+            return self::$_pdos_selectAll->fetchAll(PDO::FETCH_CLASS,'Matchs');
         }
         catch (PDOException $e) {
             print($e);
         }
+    }
+
+    /**
+     * affichage élémentaire
+     *
+     */
+    public function __toString() : string {
+        $ch = "<table border='1'><tr><th>id_match</th><th>date_match</th><th>elim_directe</th><th>type</th><th>score_equipe_1</th><th>score_equipe_2</th><th>id_equipe_1</th><th>id_equipe_2</th></tr><tr>";
+        $ch.= "<td>".$this->id_match."</td>";
+        $ch.= "<td>".$this->get_date_match()."</td>";
+        $ch.= "<td>".$this->elim_directe."</td>";
+        $ch.= "<td>".$this->type_match."</td>";
+        $ch.= "<td>".$this->score_equipe_1."</td>";
+        $ch.= "<td>".$this->score_equipe_2."</td>";
+        $ch.= "<td>".$this->id_equipe_1."</td>";
+        $ch.= "<td>".$this->id_equipe_2."</td>";
+        $ch.= "</tr></table>";
+        return $ch;
     }
 }
