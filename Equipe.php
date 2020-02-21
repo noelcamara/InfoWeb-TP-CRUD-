@@ -346,13 +346,12 @@ class Equipe {
      * affichage élémentaire
      */
     public function __toString() : string {
-        $ch = "<table border='1'><tr><th>id_equipe</th><th>nom_equipe</th><th>nb_victoire</th><th>nb_defaite</th><th>nb_points</th><th>nouveau</th></tr><tr>";
+        $ch = "<table border='1'><tr><th>id_equipe</th><th>nom_equipe</th><th>nb_victoire</th><th>nb_defaite</th><th>nb_points</th></tr><tr>";
         $ch.= "<td>".$this->id_equipe."</td>";
         $ch.= "<td>".$this->nom_equipe."</td>";
         $ch.= "<td>".$this->nb_victoire."</td>";
         $ch.= "<td>".$this->nb_defaite."</td>";
         $ch.= "<td>".$this->nb_points."</td>";
-        $ch.= "<td>".$this->nouveau."</td>";
         $ch.= "</tr></table>";
         return $ch;
     }

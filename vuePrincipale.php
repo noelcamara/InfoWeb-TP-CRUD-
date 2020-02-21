@@ -17,15 +17,7 @@ include 'html5_head.php';
                 </tr>
                 <tr>
                     <td>
-                        <a href='table_equipe.php'><b>equipes</b></a>
-                    </td>
-                    <td>
-                        <a href='form_equipe.php'>Ajouter</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href='table_joueurs.php'><b>equipes</b></a>
+                        <a href='table_joueurs.php'><b>Joueurs</b></a>
                     </td>
                     <td>
                         <a href='form_joueurs.php'>Ajouter</a>
@@ -33,7 +25,15 @@ include 'html5_head.php';
                 </tr>
                 <tr>
                     <td>
-                        <a href='table_matchs.php'><b>equipes</b></a>
+                        <a href='table_equipe.php'><b>Equipes</b></a>
+                    </td>
+                    <td>
+                        <a href='form_equipe.php'>Ajouter</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href='table_matchs.php'><b>Matchs</b></a>
                     </td>
                     <td>
                         <a href='form_matchs.php'>Ajouter</a>

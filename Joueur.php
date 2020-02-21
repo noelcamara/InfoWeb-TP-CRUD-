@@ -134,6 +134,13 @@ class Joueur {
     protected $id_equipe;
 
     /**
+     * attribut interne pour différencier les nouveaux objets des objets créés côté applicatif de ceux issus du SGBD
+     * @var bool
+     */
+    private bool $nouveau = TRUE;
+
+
+    /**
      * @return $this->id_joueur
      */
     public function getid_joueur() : int {
@@ -178,6 +185,7 @@ class Joueur {
     public function getNomJoueur(): string {
         return $this->nom_joueur;
     }
+
     /**
      * @param string $nom
      */
@@ -213,7 +221,20 @@ class Joueur {
         $this->poste_joueur = $poste_joueur;
     }
 
+    /**
+     * @param bool $b
+     */
+    public function setNouveau(bool $b){
+        $this->nouveau=$b;
+    }
 
+    /**
+     * @param bool $b
+     * @return mixed
+     */
+    public function getNouveau(bool $b){
+        return $this->nouveau;
+    }
 
     public static function getAll() {
         try {
@@ -223,7 +244,7 @@ class Joueur {
                 self::initPDOS_selectAll();
             self::$_pdos_selectAll->execute();
             // résultat du fetch dans une instance de joueur
-            $lesJoueurs = self::$_pdos_selectAll->fetchAll(PDO::FETCH_CLASS,'Joueur');
+            $lesJoueurs = self::$_pdos_selectAll->fetchAll(PDO::FETCH_CLASS,'joueur');
             return $lesJoueurs;
         }
         catch (PDOException $e) {
