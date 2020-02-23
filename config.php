@@ -1,8 +1,14 @@
 <?php
 
-$_ENV['host'] = "ust-infoserv.univlehavre.lan";
-$_ENV['user'] = "bm142013";
-$_ENV['db'] = "bm142013";
-$_ENV['passwd'] = "20142013";
+$_ENV['sgbd'] = 'mysql';
+$_ENV['host'] = "localhost";
+$_ENV['user'] = "noel";
+$_ENV['db'] = "projetNoel";
+$_ENV['password'] = "cn196097";
 
-?>
+//$_ENV['sgbd'] = 'pgsql';
+//$_ENV['host'] = "localhost";
+//$_ENV['user'] = "postgres";
+//$_ENV['db'] = "projetnoel";
+//$_ENV['password'] = "dile";
+
