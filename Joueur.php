@@ -52,6 +52,9 @@ class Joueur {
      */
     public static function initPDO() {
         self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        /* Maxence pc perso
+        self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";port=".$_ENV['port'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        */
         // pour récupérer aussi les exceptions provenant de PDOStatement
         self::$_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
@@ -137,7 +140,7 @@ class Joueur {
      * attribut interne pour différencier les nouveaux objets des objets créés côté applicatif de ceux issus du SGBD
      * @var bool
      */
-    private bool $nouveau = TRUE;
+    private $nouveau = TRUE;
 
 
     /**

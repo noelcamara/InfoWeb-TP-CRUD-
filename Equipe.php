@@ -52,6 +52,9 @@ class Equipe {
      */
     public static function initPDO() {
         self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        /* Maxence pc perso
+        self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";port=".$_ENV['port'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        */
         // pour récupérer aussi les exceptions provenant de PDOStatement
         self::$_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

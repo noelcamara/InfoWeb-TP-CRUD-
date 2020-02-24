@@ -51,6 +51,9 @@ class Matchs {
      */
     public static function initPDO() {
         self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        /* Maxence pc perso
+        self::$_pdo = new PDO("mysql:host=".$_ENV['host'].";port=".$_ENV['port'].";dbname=".$_ENV['db'],$_ENV['user'],$_ENV['passwd']);
+        */
         // pour récupérer aussi les exceptions provenant de PDOStatement
         self::$_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
@@ -60,21 +63,21 @@ class Matchs {
      * instantiation de self::$_pdos_selectAll
      */
     public static function initPDOS_selectAll() {
-        self::$_pdos_selectAll = self::$_pdo->prepare('SELECT * FROM matchs');
+        self::$_pdos_selectAll = self::$_pdo->prepare('SELECT * FROM matchs;');
     }
 
     /**
      * méthode statique instanciant matchs::$_pdo_select
      */
     public static function initPDOS_select() {
-        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM matchs WHERE id_match=:numero');
+        self::$_pdos_select = self::$_pdo->prepare('SELECT * FROM matchs WHERE id_match = :numero;');
     }
 
     /**
      * méthode statique instanciant equipeMetier::$_pdo_update
      */
     public static function initPDOS_update() {
-        self::$_pdos_update =  self::$_pdo->prepare('UPDATE matchs SET id_match=:numero,date_match=:date_match,elim_directe=:elim_drecte,type=:type_match,score_equipe1=:score_equipe1, score_equipe2=:score_equipe_2,id_equipe1=:id_equipe_1,id_equipe2=:id_equipe_2 WHERE id_match=:numero');
+        self::$_pdos_update = self::$_pdo->prepare('UPDATE matchs SET id_match=:numero,date_match=:date_match,elim_directe=:elim_drecte,type=:type,score_equipe1=:score_equipe1, score_equipe2=:score_equipe_2,id_equipe1=:id_equipe_1,id_equipe2=:id_equipe_2 WHERE id_match=:numero');
     }
 
     /**
@@ -111,25 +114,25 @@ class Matchs {
      * numéro du equipe (identifiant dans la table equipe)
      * @var int
      */
-    protected $id_equipe_1;
+    protected $id_equipe1;
 
     /**
      * numéro du equipe (identifiant dans la table equipe)
      * @var int
      */
-    protected $id_equipe_2;
+    protected $id_equipe2;
 
     /**
      * nombre de points de l'equipe 1
      *   @var int
      */
-    protected $score_equipe_1;
+    protected $score_equipe1;
 
     /**
      * nombre de points de l'equipe 2
      *   @var int
      */
-    protected $score_equipe_2;
+    protected $score_equipe2;
 
     /**
      * date du match en jj/mm/aaaa
@@ -147,13 +150,13 @@ class Matchs {
      * le tour du match (groupes, quart, demi finale etc)
      *   @var string
      */
-    protected $type_match;
+    protected $type;
 
     /**
      * attribut interne pour différencier les nouveaux objets des objets créés côté applicatif de ceux issus du SGBD
      * @var bool
      */
-    private bool $nouveau = TRUE;
+    private $nouveau = TRUE;
 
     /**
      * (est-on censé faire un setteur d'id aussi ?
@@ -200,55 +203,67 @@ class Matchs {
      * @return $this->id_equipe_1
      */
     public function getid_equipe_1() : int {
-        return $this->id_equipe_1;
+        return $this->id_equipe1;
     }
 
     /**
      * @return $this->id_equipe_2
      */
     public function getid_equipe_2() : int {
-        return $this->id_equipe_2;
+        return $this->id_equipe2;
     }
+
+    /**
+     * @return $this->type_match
+     */
+    public function gettype() : string {
+        return $this->type;
+    }
+
+    public function settype($type) : void {
+        $this->type = $type;
+    }
+
     /**
      * @param $id_equipe
      */
     public function setid_equipe_1($id_equipe): void {
-        $this->id_equipe_1=$id_equipe;
+        $this->id_equipe1=$id_equipe;
     }
 
     /**
      * @param $id_equipe
      */
     public function setid_equipe_2($id_equipe): void {
-        $this->id_equipe_2=$id_equipe;
+        $this->id_equipe2=$id_equipe;
     }
 
     /**
      * @param $nom_equipe
      */
     public function setnom_equipe_1($nom_equipe): void {
-        $this->nom_equipe_1=$nom_equipe;
+        $this->nom_equipe1=$nom_equipe;
     }
 
     /**
      * @param $nom_equipe
      */
     public function setnom_equipe_2($nom_equipe): void {
-        $this->nom_equipe_2=$nom_equipe;
+        $this->nom_equipe2=$nom_equipe;
     }
 
     /**
      * @param $nom_equipe
      */
     public function setscore_equipe_1($nb_points): void {
-        $this->score_equipe_1=$nb_points;
+        $this->score_equipe1=$nb_points;
     }
 
     /**
      * @param $nom_equipe
      */
     public function setscore_equipe_2($nb_points): void {
-        $this->score_equipe_2=$nb_points;
+        $this->score_equipe2=$nb_points;
     }
 
     /**
@@ -281,14 +296,14 @@ class Matchs {
      * @return $this->nb_victoire
      */
     public function getscore_equipe_1() : string {
-        return $this->score_equipe_1;
+        return $this->score_equipe1;
     }
 
     /**
      * @return $this->nb_victoire
      */
     public function getscore_equipe_2() : string {
-        return $this->score_equipe_2;
+        return $this->score_equipe2;
     }
 
     /**
@@ -338,13 +353,13 @@ class Matchs {
     public function __toString() : string {
         $ch = "<table border='1'><tr><th>id_match</th><th>date_match</th><th>elim_directe</th><th>type</th><th>score_equipe_1</th><th>score_equipe_2</th><th>id_equipe_1</th><th>id_equipe_2</th></tr><tr>";
         $ch.= "<td>".$this->id_match."</td>";
-        $ch.= "<td>".$this->get_date_match()."</td>";
+        $ch.= "<td>".$this->date_match."</td>";
         $ch.= "<td>".$this->elim_directe."</td>";
-        $ch.= "<td>".$this->type_match."</td>";
-        $ch.= "<td>".$this->score_equipe_1."</td>";
-        $ch.= "<td>".$this->score_equipe_2."</td>";
-        $ch.= "<td>".$this->id_equipe_1."</td>";
-        $ch.= "<td>".$this->id_equipe_2."</td>";
+        $ch.= "<td>".$this->type."</td>";
+        $ch.= "<td>".$this->score_equipe1."</td>";
+        $ch.= "<td>".$this->score_equipe2."</td>";
+        $ch.= "<td>".$this->id_equipe1."</td>";
+        $ch.= "<td>".$this->id_equipe2."</td>\n";
         $ch.= "</tr></table>";
         return $ch;
     }

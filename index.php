@@ -14,6 +14,18 @@
 	  case "tableEquipe":
 			include 'table_equipe.php';
 		break;
+		case "formJoueur":
+			include 'form_joueur.php';
+		break;
+	  case "tableJoueur":
+			include 'table_joueur.php';
+		break;
+		case "formMatchs":
+			include 'form_matchs.php';
+		break;
+	  case "tableMatchs":
+			include 'table_matchs.php';
+		break;
 	  default:
 			include 'vuePrincipale.php';
 		break;
