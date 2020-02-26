@@ -45,6 +45,12 @@ class Equipe {
         */
      private static $_pdos_selectAll;
 
+    /**
+     * PreparedStatement
+     * @var PDOStatement;
+     */
+    public static $_pdos_selectNom;
+
 
 
     /**
@@ -65,6 +71,13 @@ class Equipe {
         */
     public static function initPDOS_selectAll() {
         self::$_pdos_selectAll = self::$_pdo->prepare('SELECT * FROM equipe');
+    }
+    /**
+     * préparation de la requête SELECT nom_equipe FROM equipe WHERE id_equipe=id_donné
+     * instantiation de self::$_pdos_selectAll
+     */
+    public static function initPDOS_select_nom($id) {
+        self::$_pdos_selectNom = self::$_pdo->prepare('SELECT nom_equipe FROM equipe WHERE id_equipe= $id');
     }
 
      /**
@@ -259,7 +272,7 @@ class Equipe {
 
     /**
      * initialisation d'un objet métier à partir d'un enregistrement de equipe
-     * @param $id_equipe un identifiant de equipe
+     * @param $id_equipe,un identifiant de equipe
      * @return l'instance de equipeMetier associée à $id_equipe
      */
     public static function initEquipe($id_equipe) : equipe {

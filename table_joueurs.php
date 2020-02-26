@@ -1,5 +1,6 @@
 <?php
 include "html5_head.php";
+include "Equipe.php";
 ?>
 <a href='vuePrincipale.php'> Retour à l'accueil </a></br>
 <?php
@@ -8,11 +9,11 @@ include "Joueur.php";
 
 if(isset($_POST['delete']) && isset($_POST['id'])) {
     try {
-        $equipe = joueur::initJoueur($_POST['id']);
+        $joueur = joueur::initJoueur($_POST['id']);
     } catch (Exception $e) {
         echo "initialisation d'équipe ratée";
     }
-    $equipe->delete();
+    $joueur->delete();
     echo "<p class='suppression'> Suppression réussie! </p>";
 }
 
@@ -27,13 +28,51 @@ if(isset($_POST['page'])) {
     $page = $_POST['page'];
 }
 
-$allEquipe = Joueur::getAll();
+$allJoueurs = Joueur::getAll();
 
 echo Joueur::tableEntete(); // méthode ligne 148
 
-foreach($allEquipe as $equipe) {
-    echo $equipe;
+$equipeid=0;
+$it=0;
+$ch ='<h1>Présentation des joueurs</h1>';
+
+
+/* Version proposée le 26/02/2020 par Thomas : */
+foreach($allJoueurs as $joueur) {
+    if($equipeid!=$joueur->getIdEquipe()){
+        if($equipeid!=0) {
+            $ch.= "</table>";
+            try {
+                $equipe = Equipe::initEquipe($equipeid);
+            } catch (Exception $e) {
+                echo"no equipe found with this id";
+            }
+            $nom=$equipe->getnom_equipe();
+            $ch ="<h2>$nom</h2>";
+        }
+        $ch .= "<table border='1'><tr><th>nom</th><th>prenom</th><th>poste</th><th>capitaine</th></tr>";
+        $equipeid=$joueur->getIdEquipe();
+    } else {
+        $ch.='<tr>'.$joueur.'</tr>';
+        $it++;
+    }
+    //$ch.= "</tr></table>";
+    if($it==11){
+        echo $ch;
+        $it=0;
+    }
 }
+
+/* comme avant :
+foreach($allJoueurs as $joueur) {
+    $ch ="";
+    $ch .= "<table border='1'><tr><th>id_joueur</th><th>nom</th><th>prenom</th><th>poste</th><th>capitaine</th><th>id_equipe</th></tr>";
+    $ch.=$joueur;
+    $ch.='</table>';
+    echo $ch;
+}
+*/
+
 
 echo Joueur::tableFooter(); // méthode ligne 152
 

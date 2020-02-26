@@ -294,14 +294,15 @@ class Joueur {
      * affichage élémentaire
      */
     public function __toString() : string {
-        $ch = "<table border='1'><tr><th>id_joueur</th><th>nom</th><th>prenom</th><th>poste</th><th>capitaine</th><th>id_equipe</th></tr><tr>";
-        $ch.= "<td>".$this->id_joueur."</td>";
+        $ch='';
+        //$ch = "<table border='1'><tr><th>id_joueur</th><th>nom</th><th>prenom</th><th>poste</th><th>capitaine</th><th>id_equipe</th></tr><tr>";
+        //$ch.= "<td>".$this->id_joueur."</td>";
         $ch.= "<td>".$this->nom_joueur."</td>";
         $ch.= "<td>".$this->prenom_joueur."</td>";
         $ch.= "<td>".$this->poste_joueur."</td>";
         $ch.= "<td>".$this->capitaine."</td>";
-        $ch.= "<td>".$this->id_equipe."</td>";
-        $ch.= "</tr></table>";
+        //$ch.= "<td>".$this->id_equipe."</td>";
+        //$ch.= "</tr></table>";
         return $ch;
     }
 
