@@ -52,6 +52,9 @@ try {
 $contenu = "";
 $message = "";
 
+// ajout d'un lien vers la page d'accueil
+$contenu .= "<p><a href='index.php?action=initialiser'>Accueil</a></p>\n";
+
 if (!isset($_GET['action']))
     $_GET['action'] = "initialiser";
 
@@ -208,6 +211,9 @@ switch ($_SESSION['état']) {
         $keyName = $classeEntite->getStaticPropertyValue(("PK"))[0];
         $contenu .= $myPDO->getAll($keyName);
 
+        $contenu2 =$myPDO->
+
+
         // ajout d'un lien pour la création d'un nouvel élement
         $contenu .= "<p><a href='index.php?action=créerEntité&table_name=" . $_SESSION['table_name'] . "'>
                 Créer une nouvelle entité</a></p>\n";
@@ -222,8 +228,7 @@ switch ($_SESSION['état']) {
         $_SESSION['etat'] = 'Accueil';
 }
 
-// ajout d'un lien vers la page d'accueil
-$contenu .= "<p><a href='index.php?action=initialiser'>Accueil</a></p>\n";
+
 
 // Production de la page HTML
 echo getDebutHTML();
