@@ -26,11 +26,11 @@ class EntiteJoueur extends AbstractEntite
     public function __construct($param)
     {
         parent::setPersistant(false);
-        $this->id_joueur = $param['id_equipe'];
-        $this->prenom_joueur = $param['nom_equipe'];
-        $this->nom_joueur = $param['nb_victoire'];
-        $this->poste_joueur = $param['nb_defaite'];
-        $this->capitaine = $param['nb_points'];
+        $this->id_joueur = $param['id_joueur'];
+        $this->prenom_joueur = $param['prenom_joueur'];
+        $this->nom_joueur = $param['nom_joueur'];
+        $this->poste_joueur = $param['poste_joueur'];
+        $this->capitaine = $param['capitaine'];
         $this->id_equipe = $param['id_equipe'];
     }
 

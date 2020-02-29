@@ -69,7 +69,8 @@ class MyIterator extends RecursiveIteratorIterator
     function current()
     {
         $i = parent::key();
-        if ($i == 'id_equipe' || $i == 'id_joueur' || $i == 'id_match') {
+        //Modification pour la suppression de Joueur
+        if ($i == 'id_equipe' && $_SESSION['table_name'] == "Equipe" || $i == 'id_joueur' || $i == 'id_match') {
             $this->idName = $i;
             $this->idValue = parent::current();
         }
