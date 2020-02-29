@@ -10,67 +10,16 @@ include "EntiteJoueur.php";
 include "EntiteMatchs.php";
 include "VueEntite.php";
 
+include "HTMLdebut.php";
+include "HTMLfin.php";
 
-
-function getDebutHTML(): string
-{
-    return "
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta charset=\"utf-8\">
-    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-    <title>My first Bulma website</title>
-    <link rel=\"stylesheet\" href=\"css/main.css\">
-    </head>
-    <body>";
-}
-
-function getFinHTML(): string
-{
-    return "<footer class=\"footer has-text-centered\">
-      <div class=\"container\">
-         <div class=\"columns\">
-          <div class=\"column is-8-desktop is-offset-2-desktop\">
-            <p>
-              <strong class=\"has-text-weight-semibold\">
-                <a href=\"https://www.npmjs.com/package/bulma-start\">bulma-start@0.0.3</a>
-              </strong>
-            </p>
-            <p>
-              <small>
-                Source code licensed <a href=\"http://opensource.org/licenses/mit-license.php\">MIT</a>
-              </small>
-            </p>
-            <p style=\"margin-top: 1rem;\">
-              <a href=\"http://bulma.io\">
-                <img src=\"made-with-bulma.png\" alt=\"Made with Bulma\" width=\"128\" height=\"24\">
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <script type=\"text/javascript\" src=\"lib/main.js\"></script>
-  </body>
-</html>";
-}
-
-function getListeTables(): string
-{
-
-    return "   
-             <p><a href='index.php?action=selectionnerTable&table_name=Equipe'>Table Equipe</a></p>\n
-             <p><a href='index.php?action=selectionnerTable&table_name=Joueur'>Table Joueur</a></p>\n
-             <p><a href='index.php?action=selectionnerTable&table_name=Matchs'>Table Matchs</a></p>\n
-        ";
-}
+getDebutHTML();
+getFinHTML();
 
 // initialisation de la connexion via l'instance de MyPDO
 
 try {
-    $myPDO = new MyPDO($_ENV['sgbd'], $_ENV['host'], $_ENV['db'], $_ENV['user'], $_ENV['password']);
+    $myPDO = new MyPDO($_ENV['sgbd'], $_ENV['host'], $_ENV['port'], $_ENV['db'], $_ENV['user'], $_ENV['password']);
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
@@ -78,10 +27,6 @@ try {
 // initialisation des chaînes à afficher
 $contenu = "";
 $message = "";
-
-// ajout d'un lien vers la page d'accueil
-$contenu .= "<p><a href='index.php?action=initialiser'>Accueil</a></p>\n";
-
 
 if (!isset($_GET['action']))
     $_GET['action'] = "initialiser";
@@ -224,7 +169,6 @@ if (!isset($_GET['action']))
 
 switch ($_SESSION['état']) {
     case 'Accueil':
-        $contenu .= getListeTables();
         break;
 
     case 'afficheTable' :
