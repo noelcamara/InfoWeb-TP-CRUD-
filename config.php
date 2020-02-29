@@ -3,6 +3,7 @@
 /* home rida
 $_ENV['sgbd'] = 'mysql';
 $_ENV['host'] = "localhost";
+<<<<<<< HEAD
 $_ENV['user'] = "root";
 $_ENV['db'] = "bdd";
 $_ENV['password'] = "";
@@ -15,6 +16,12 @@ $_ENV['user'] = "root";
 $_ENV['db'] = "test";
 $_ENV['password'] = "oui";
 
+/* home maxence
+$_ENV['port'] = '3309';
+$_ENV['user'] = "bm142013";
+$_ENV['db'] = "bm142013";
+$_ENV['password'] = "bm142013";
+*/
 /* university */
 /*
 $_ENV['sgbd'] = 'mysql';
