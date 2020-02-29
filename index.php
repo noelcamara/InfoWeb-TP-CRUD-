@@ -13,8 +13,8 @@ include "VueEntite.php";
 include "HTMLdebut.php";
 include "HTMLfin.php";
 
-getDebutHTML();
-getFinHTML();
+debutHTML();
+FinHTML();
 
 // initialisation de la connexion via l'instance de MyPDO
 
@@ -199,10 +199,38 @@ switch ($_SESSION['état']) {
         $_SESSION['etat'] = 'Accueil';
 }
 
-
+function corpsAccueil(): string {
+     return "
+     <section class=\"columns\" style=\"margin-top: 2rem\">
+  <div class=\"column  is-half is-offset-one-quarter\">
+    <h1 class=\"title\">Accueil</h1>
+    <div class=\"columns \">
+      <div class=\"column group_wrapper\" >
+        <h4 class=\"tile\"><p>Les différentes vues :</p> </h4>
+        <ul class=\"column\" style=\"display: flex; flex-direction: column; align-items: center !important;\">
+          <li style=\"display: flex; align-items: center;\">
+            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"get\"><button name='table'>vue des joueurs</button></form></p>
+          </li>
+          <li style=\"display: flex; align-items: center;\">
+            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"post\" name='matchs'><a>vue des matchs</a></form></p>
+          </li>
+          <li style=\"display: flex; align-items: center;\">
+            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"post\" name='equipes'><a>vue des équipes</a></p>
+          </li>
+          <li style=\"display: flex; align-items: center;\">
+            <p class=\"is-inline-block\"><a>vue des groupes</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+    ";
+}
 
 // Production de la page HTML
-echo getDebutHTML();
+echo debutHTML();
+echo corpsAccueil();
 echo $message;
 echo $contenu;
-echo getFinHTML();
+echo finHTML();

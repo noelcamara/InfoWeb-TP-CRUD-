@@ -3,7 +3,6 @@
 /* home rida
 $_ENV['sgbd'] = 'mysql';
 $_ENV['host'] = "localhost";
-<<<<<<< HEAD
 $_ENV['user'] = "root";
 $_ENV['db'] = "bdd";
 $_ENV['password'] = "";
