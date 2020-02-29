@@ -2,10 +2,12 @@
 
 namespace projet_php;
 
+//require "AbstractEntite.php";
+
 class EntiteJoueur extends AbstractEntite
 {
     const TABLENAME = 'Joueur';
-    static $COLNAMES = array('id_joueur', 'prenom_joueur', 'nom_joueur', 'poste_joueur	', 'capitaine', 'id_equipe');
+    static $COLNAMES = array('id_joueur', 'prenom_joueur', 'nom_joueur', 'poste_joueur', 'capitaine', 'id_equipe');
     static $COLTYPES = array('number', 'text', 'text', 'text', 'text', 'number'); // par facilité, les types des formulaires
     static $COLTYPES4UPDATE = array(array('type' => 'hidden', 'default' => ''), 'text', 'text', 'text', 'text', 'number');
     static $PK = array('id_joueur');  // tableau pour une éventuelle clé composite
@@ -17,7 +19,7 @@ class EntiteJoueur extends AbstractEntite
     protected $nom_joueur;
     protected $poste_joueur;
     protected $capitaine;
-    protected $id_equipe;
+    protected $f_id_equipe;
 
     /**
      * EntiteJoueurs constructor.
@@ -29,9 +31,11 @@ class EntiteJoueur extends AbstractEntite
         $this->id_joueur = $param['id_joueur'];
         $this->prenom_joueur = $param['prenom_joueur'];
         $this->nom_joueur = $param['nom_joueur'];
-        $this->poste_joueur = $param['poste_joueur'];
+
+        $poste = isset($_POST['poste_joueur']) ? $_POST['poste_joueur'] : NULL;
+        $this->poste_joueur = $poste;
         $this->capitaine = $param['capitaine'];
-        $this->id_equipe = $param['id_equipe'];
+        $this->f_id_equipe = $param['id_equipe'];
     }
 
 }
