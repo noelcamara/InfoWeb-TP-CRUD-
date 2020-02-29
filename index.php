@@ -97,9 +97,6 @@ if (!isset($_GET['action']))
         break;
 
     case 'supprimerEntité':
-        foreach ($_GET as $key => $value) {
-            echo "GEt : ", $key, " = ", $value, "<br>";
-        }
 
         $myPDO->setNomTable($_SESSION['table_name']);
 
