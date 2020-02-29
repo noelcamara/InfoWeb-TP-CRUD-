@@ -1,10 +1,19 @@
 <?php
-/* home */
+
+/* home rida
 $_ENV['sgbd'] = 'mysql';
 $_ENV['host'] = "localhost";
 $_ENV['user'] = "root";
 $_ENV['db'] = "bdd";
 $_ENV['password'] = "";
+*/
+
+/* home sedrun*/
+$_ENV['sgbd'] = 'mysql';
+$_ENV['host'] = "localhost";
+$_ENV['user'] = "root";
+$_ENV['db'] = "test";
+$_ENV['password'] = "oui";
 
 /* university */
 /*
