@@ -11,23 +11,50 @@ include "EntiteMatchs.php";
 include "VueEntite.php";
 
 
+
 function getDebutHTML(): string
 {
     return "
-    <!doctype html>
-    <html lang=\"fr\">
+    <!DOCTYPE html>
+    <html>
     <head>
-        <meta charset=\"utf-8\">
-        <title>CRUD Interface</title>
-    <!-- <link rel=\"stylesheet\" href=\"style.css\"> -->
-    <!-- <script src=\"script.js\"></script> -->
+    <meta charset=\"utf-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <title>My first Bulma website</title>
+    <link rel=\"stylesheet\" href=\"css/main.css\">
     </head>
     <body>";
 }
 
 function getFinHTML(): string
 {
-    return "</body></html>";
+    return "<footer class=\"footer has-text-centered\">
+      <div class=\"container\">
+         <div class=\"columns\">
+          <div class=\"column is-8-desktop is-offset-2-desktop\">
+            <p>
+              <strong class=\"has-text-weight-semibold\">
+                <a href=\"https://www.npmjs.com/package/bulma-start\">bulma-start@0.0.3</a>
+              </strong>
+            </p>
+            <p>
+              <small>
+                Source code licensed <a href=\"http://opensource.org/licenses/mit-license.php\">MIT</a>
+              </small>
+            </p>
+            <p style=\"margin-top: 1rem;\">
+              <a href=\"http://bulma.io\">
+                <img src=\"made-with-bulma.png\" alt=\"Made with Bulma\" width=\"128\" height=\"24\">
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script type=\"text/javascript\" src=\"lib/main.js\"></script>
+  </body>
+</html>";
 }
 
 function getListeTables(): string
@@ -210,9 +237,6 @@ switch ($_SESSION['état']) {
         }
         $keyName = $classeEntite->getStaticPropertyValue(("PK"))[0];
         $contenu .= $myPDO->getAll($keyName);
-
-        $contenu2 =$myPDO->
-
 
         // ajout d'un lien pour la création d'un nouvel élement
         $contenu .= "<p><a href='index.php?action=créerEntité&table_name=" . $_SESSION['table_name'] . "'>
