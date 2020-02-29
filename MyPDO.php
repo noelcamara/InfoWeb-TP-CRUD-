@@ -136,7 +136,7 @@ class MyPDO
             $query .= $colName."=:".$colName.", ";
         }
         $query = substr($query,0, strlen($query)-2);
-        $query .= " WHERE ".$nomColId."=:".$nomColId;
+        $query .= " WHERE ".$nomColId."=:".$nomColId.';';
         $this->pdos_update =  $this->pdo->prepare($query);
     }
 

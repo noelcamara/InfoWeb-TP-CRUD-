@@ -23,8 +23,7 @@ abstract class AbstractEntite
      * @param bool $persistant
      * @return AbstractEntite
      */
-    public function setPersistant(bool $persistant): AbstractEntite
-    {
+    public function setPersistant(bool $persistant): AbstractEntite {
         $this->persistant = $persistant;
         return $this;
     }

@@ -99,9 +99,8 @@ if (!isset($_GET['action']))
         $myPDO->setNomTable($_SESSION['table_name']);
         // récupération du nom de colonne dans le GET
         $keyName = array_keys(array_diff_key($_GET, array('action' => TRUE)))[0];
-
         $res = $myPDO->delete(array($keyName => $_GET[$keyName]));
-        $message .= "<p>Entité " . $_GET[$keyName] . " supprimée</p>\n";
+        $message .= "<p>".$_SESSION['table_name']." ". $_GET[$keyName] . " supprimée</p>\n";
         if (!$res)
             $message = "<p>Impossible de supprimer cette ligne</p>\n";
 
