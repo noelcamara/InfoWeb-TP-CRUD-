@@ -37,7 +37,7 @@ class VueEntite
             }
         }
 
-        $ch .= "<input type='submit' name='Valider' value='Sauver'/>\n";
+        $ch .= "<br><input type='submit' name='Valider' value='Sauver'/>\n";
         $ch .= "<input id='action' name='action' type='hidden' value='" . $action . "'>";
         return $ch . "</form>\n";
     }

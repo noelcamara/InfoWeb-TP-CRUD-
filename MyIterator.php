@@ -34,8 +34,7 @@ class MyIterator extends RecursiveIteratorIterator
      */
     public function getTHead(): string
     {
-        $this->sortie = '<table border="2" >';
-        $this->sortie .= '<thead>';
+        $this->sortie = '<thead>';
         $this->sortie .= '<tr>';
 
         $resultats = $this->pdo->query(sprintf("SELECT * FROM $this->nom_table LIMIT 1" ));

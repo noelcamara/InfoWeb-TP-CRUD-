@@ -7,7 +7,7 @@ require "AbstractEntite.php";
 class EntiteEquipe extends AbstractEntite
 {
     const TABLENAME = 'Equipe';
-    static $COLNAMES = array('id_equipe', 'nom_equipe', 'nb_victoire', 'nb_defaite', 'nb_points');
+    static $COLNAMES = array('id_equipe', 'nom_equipe', '<br>nb_victoire', '<br>nb_defaite', '<br>nb_points');
     static $COLTYPES = array('number', 'text', 'number', 'number', 'number'); // par facilité, les types des formulaires
     static $COLTYPES4UPDATE = array(array('type' => 'hidden', 'default' => ''),'text', 'number', 'number', 'number');
     static $PK = array('id_equipe');  // tableau pour une éventuelle clé composite

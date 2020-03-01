@@ -13,8 +13,8 @@ include "VueEntite.php";
 include "HTMLdebut.php";
 include "HTMLfin.php";
 
-debutHTML();
-FinHTML();
+getDebutHTML();
+getFinHTML();
 
 // initialisation de la connexion via l'instance de MyPDO
 
@@ -24,6 +24,7 @@ try {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
 }
+
 // initialisation des chaînes à afficher
 $contenu = "";
 $message = "";
@@ -169,29 +170,31 @@ if (!isset($_GET['action']))
 
 switch ($_SESSION['état']) {
     case 'Accueil':
+        $contenu = "<figure class='image'><img src='images/accueilBasket.png' alt='Championnat du monde de basketball 2019' title='Championnat du monde de basketball 2019'/></figure>
+            </div></div></div></section>";
         break;
 
     case 'afficheTable' :
         $classeVue = new ReflectionClass("projet_php\VueEntite");
         $vue = $classeVue->newInstance();
-        // Titre
-        $contenu .= "<h1>Table " . $_SESSION['table_name'] . "</h1>";
 
         // Contenu
         try {
             $classeEntite = new ReflectionClass("projet_php\Entite" . ucfirst($_SESSION['table_name']));
         } catch (ReflectionException $e) {
+
         }
+        // ajout d'un lien pour la création d'un nouvel élement
+        $contenu = "<p><a href='index.php?action=créerEntité&table_name=" . $_SESSION['table_name'] . "'>
+                Créer une nouvelle entité</a></p>\n<br>";
+        $contenu .= "<table id='table' class='table is-fullwidth'>";
         $keyName = $classeEntite->getStaticPropertyValue(("PK"))[0];
         $contenu .= $myPDO->getAll($keyName);
-
-        // ajout d'un lien pour la création d'un nouvel élement
-        $contenu .= "<p><a href='index.php?action=créerEntité&table_name=" . $_SESSION['table_name'] . "'>
-                Créer une nouvelle entité</a></p>\n";
+        $contenu.="</table></div></div></div></section>";
         break;
 
     case 'formulaireTable':
-        //rien à faire, tout est fait dans la gestion des Actions ?
+        $contenu.="</div></div></div></section>";
         break;
 
     default:
@@ -199,38 +202,8 @@ switch ($_SESSION['état']) {
         $_SESSION['etat'] = 'Accueil';
 }
 
-function corpsAccueil(): string {
-     return "
-     <section class=\"columns\" style=\"margin-top: 2rem\">
-  <div class=\"column  is-half is-offset-one-quarter\">
-    <h1 class=\"title\">Accueil</h1>
-    <div class=\"columns \">
-      <div class=\"column group_wrapper\" >
-        <h4 class=\"tile\"><p>Les différentes vues :</p> </h4>
-        <ul class=\"column\" style=\"display: flex; flex-direction: column; align-items: center !important;\">
-          <li style=\"display: flex; align-items: center;\">
-            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"get\"><button name='table'>vue des joueurs</button></form></p>
-          </li>
-          <li style=\"display: flex; align-items: center;\">
-            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"post\" name='matchs'><a>vue des matchs</a></form></p>
-          </li>
-          <li style=\"display: flex; align-items: center;\">
-            <p class=\"is-inline-block\"><form action=\"tables.php\" method=\"post\" name='equipes'><a>vue des équipes</a></p>
-          </li>
-          <li style=\"display: flex; align-items: center;\">
-            <p class=\"is-inline-block\"><a>vue des groupes</a></p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-    ";
-}
-
 // Production de la page HTML
-echo debutHTML();
-echo corpsAccueil();
+echo getDebutHTML();
 echo $message;
 echo $contenu;
-echo finHTML();
+echo getFinHTML();

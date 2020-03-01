@@ -5,8 +5,8 @@ namespace projet_php;
 class EntiteMatchs extends AbstractEntite
 {
     const TABLENAME = 'Matchs';
-    static $COLNAMES = array('id_match', 'date_match', 'elim_directe', 'type', 'score_equipe1', 'score_equipe2',
-        'id_equipe1', 'id_equipe2');
+    static $COLNAMES = array('id_match', 'date_match', '<br>elim_directe', '<br>type', '<br>score_equipe1', '<br>score_equipe2',
+        '<br>id_equipe1', '<br>id_equipe2');
     static $COLTYPES = array('number', 'date', 'text', 'text', 'number', 'number', 'number', 'number'); // par facilité, les types des formulaires
     static $COLTYPES4UPDATE = array(array('type' => 'hidden', 'default' => ''),'date', 'text', 'text', 'number',
         'number', 'number', 'number');  // tableau pour une éventuelle clé composite

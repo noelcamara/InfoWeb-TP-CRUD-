@@ -7,7 +7,7 @@ namespace projet_php;
 class EntiteJoueur extends AbstractEntite
 {
     const TABLENAME = 'Joueur';
-    static $COLNAMES = array('id_joueur', 'prenom_joueur', 'nom_joueur', 'poste_joueur', 'capitaine', 'id_equipe');
+    static $COLNAMES = array('id_joueur', 'prenom_joueur', '<br>nom_joueur', '<br>poste_joueur', '<br>capitaine', '<br>id_equipe');
     static $COLTYPES = array('number', 'text', 'text', 'text', 'text', 'number'); // par facilité, les types des formulaires
     static $COLTYPES4UPDATE = array(array('type' => 'hidden', 'default' => ''), 'text', 'text', 'text', 'text', 'number');
     static $PK = array('id_joueur');  // tableau pour une éventuelle clé composite
