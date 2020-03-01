@@ -1,6 +1,10 @@
 <?php
+
+/**
+ * renvoie la bannière
+ * @return string
+ */
 function getDebutHTML(): string {
-    $res = getListeTables();
     return "
     <!DOCTYPE html>
     <html>
@@ -18,7 +22,9 @@ function getDebutHTML(): string {
           <div class='columns'>
             <div class='column'>
               <div class='level-item'>
-                <figure class='image is-96x96'><img src='images/LogoBasket.png' alt='Championnat du monde de Basketball 2019' title='Championnat du monde de Basketball 2019'/></figure>
+                <a href='index.php'>
+                    <figure class='image is-96x96'><img src='images/LogoBasket.png' alt='Championnat du monde de Basketball 2019' title='Championnat du monde de Basketball 2019'/></figure>
+                </a>
               </div>
             </div>
             <div class='column is-8-desktop is-offset-2-desktop'>
@@ -31,15 +37,46 @@ function getDebutHTML(): string {
         </div>
       </div>
     </section>
+    ";
+    }
 
-    <section id='corps' class='section'>
+/**
+ * renvoie le début du corps après la bannière
+ * @return string
+ */
+    function debutCorps(): string {
+    return "
+     <section id='corps' class='section'>
       <div class='container'>
-        <div class='columns'>
+        <div class='columns'>   
+    ";
+    }
+
+/**
+ * renvoie la fin du corps avant le footer
+ * @return string
+ */
+    function finCorps(): string {
+    return "
+        </div>
+        </div>
+        </section>
+        ";
+    }
+
+/**
+ * renvoie la table des matières
+ * @return string
+ */
+    function getTableMatiere(): string {
+    $res = getListeTables();
+    return "
+       
           <div class='column is-one-fifth is-hidden-mobile'>
             <aside class='menu'>
             <p class='menu-label'>Tables</p>
             <ul class='menu-list'>
-              ".$res."
+        ".$res."
             </ul>
             </aside>
           </div>
@@ -50,9 +87,14 @@ function getDebutHTML(): string {
                 <li><a href='index.php'><span class='icon is-small'><i class='fas fa-home' aria-hidden='true'></i></span>
                    <span>Accueil</span></a></li>
               </ul>
-            </nav>";
+            </nav>
+            ";
     }
 
+/**
+ * renvoie la liste des tables à insérer dans la table des matières
+ * @return string
+ */
     function getListeTables(): string {
 
         return "

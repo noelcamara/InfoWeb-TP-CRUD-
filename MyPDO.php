@@ -50,11 +50,11 @@ class MyPDO
      * @param $user
      * @param $password
      */
-    public function __construct($sgbd, $host, $port, $db, $user, $password)
+    public function __construct($sgbd, $host, $db, $user, $password)
     {
         switch ($sgbd) {
             case "mysql":
-                $this->pdo = new PDO("mysql:host=" . $host . ";port=" . $port .";dbname=" . $db, $user, $password);
+                $this->pdo = new PDO("mysql:host=" . $host .";dbname=" . $db, $user, $password);
                 break;
             case "pgsql":
                 $this->pdo = new PDO("pgsql:host=" . $host . " dbname=" . $db . " user=" . $user

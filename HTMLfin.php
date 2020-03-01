@@ -1,4 +1,8 @@
 <?php
+/**
+ * contient le footer et ferme la page html
+ * @return string
+ */
     function getFinHTML(): string {
         return "<section>
           <footer id='footer' class='footer has-text-centered'>

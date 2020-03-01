@@ -13,22 +13,36 @@ include "VueEntite.php";
 include "HTMLdebut.php";
 include "HTMLfin.php";
 
-getDebutHTML();
-getFinHTML();
+// initialisation des chaînes à afficher
+$contenu = "";
+$message = "";
 
-// initialisation de la connexion via l'instance de MyPDO
-
+/**
+ * initialisation de la connexion via l'instance de MyPDO
+ */
 try {
-    $myPDO = new MyPDO($_ENV['sgbd'], $_ENV['host'], $_ENV['port'], $_ENV['db'], $_ENV['user'], $_ENV['password']);
+    $myPDO = new MyPDO($_ENV['sgbd'], $_ENV['host'], $_ENV['db'], $_ENV['user'], $_ENV['password']);
 } catch (PDOException $e) {
     print "Erreur !: " . $e->getMessage() . "<br/>";
     die();
 }
 
-// initialisation des chaînes à afficher
-$contenu = "";
-$message = "";
-
+/**
+ * actions possibles (récupérées par $_GET['action']) :
+ * initialiser :
+ * * initialisation de la page d'accueil
+ * selectionnerTable :
+ * * sélection de la vue d'une table (et donc affichage de la table)
+ * supprimerEntité
+ * * sélection de la suppression d'une table (suppression d'une entité (equipe, joueur match))
+ * créerEntité
+ * * sélection de la création d'une table (création  d'une entité (equipe, joueur match))
+ * modifierEntité
+ * * sélection de la modification d'une table(modification d'une entité (equipe, joueur match))
+ *
+ * * * * 'insertion de l'entité dans la bonne table : insertionEntité
+ * * * * une commande pour savoir si l'opération a pu avoir lieu : sauverEntité
+ */
 if (!isset($_GET['action']))
     $_GET['action'] = "initialiser";
 
@@ -168,6 +182,15 @@ if (!isset($_GET['action']))
         $_SESSION['etat'] = 'Accueil';
 }
 
+/**
+ * Accueil :
+ * affichage de la page d'accueil
+ * afficheTable :
+ * affichage d'une page de table
+ * formulaire table :
+ * affichage d'un formulaire
+ * défaut : Accueil.
+ */
 switch ($_SESSION['état']) {
     case 'Accueil':
         $contenu = "<figure class='image'><img src='images/accueilBasket.png' alt='Championnat du monde de basketball 2019' title='Championnat du monde de basketball 2019'/></figure>
@@ -202,8 +225,13 @@ switch ($_SESSION['état']) {
         $_SESSION['etat'] = 'Accueil';
 }
 
-// Production de la page HTML
+/**
+ * production de la page :
+ */
 echo getDebutHTML();
+echo debutCorps();
+echo getTableMatiere();
 echo $message;
 echo $contenu;
+echo finCorps();
 echo getFinHTML();
