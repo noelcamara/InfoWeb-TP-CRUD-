@@ -1,30 +1,27 @@
 <?php
-
-namespace projet_php;
-
-/**
- * Class AbstractEntite
- * pour gérer l'attribut $persistant
- * @package CoupeDuMondeBasket
- */
-abstract class AbstractEntite
-{
-    protected $persistant;
+    namespace projet_php;
 
     /**
-     * @return bool
+     * Class AbstractEntite
+     * pour gérer l'attribut $persistant
+     * @package CoupeDuMondeBasket
      */
-    public function getPersistant(): bool
-    {
-        return $this->persistant;
-    }
+    abstract class AbstractEntite {
+        protected $persistant;
 
-    /**
-     * @param bool $persistant
-     * @return AbstractEntite
-     */
-    public function setPersistant(bool $persistant): AbstractEntite {
-        $this->persistant = $persistant;
-        return $this;
+        /**
+         * @return bool
+         */
+        public function getPersistant(): bool {
+            return $this->persistant;
+        }
+
+        /**
+         * @param bool $persistant
+         * @return AbstractEntite
+         */
+        public function setPersistant(bool $persistant): AbstractEntite {
+            $this->persistant = $persistant;
+            return $this;
+        }
     }
-}
