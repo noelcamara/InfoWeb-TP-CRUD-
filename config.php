@@ -2,10 +2,10 @@
 /* home */
 $_ENV['sgbd'] = 'mysql';
 $_ENV['host'] = "localhost";
-$_ENV['port'] = '3309';
-$_ENV['user'] = "bm142013";
-$_ENV['db'] = "bm142013";
-$_ENV['password'] = "bm142013";
+$_ENV['port'] = '8889';
+$_ENV['user'] = "root";
+$_ENV['db'] = "bdd";
+$_ENV['password'] = "";
 
 /* university */
 /*
